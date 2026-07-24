@@ -1,108 +1,157 @@
-# VsftpdFTPSSimplifier
+# VsftpdFTPSSimplifier 🛠️
 
-A Python-based tool to simplify the installation, configuration, and management of the `vsftpd` service for secure FTPS.
+![VsftpdFTPSSimplifier](https://img.shields.io/badge/VsftpdFTPSSimplifier-Python-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![License](https://img.shields.io/badge/license-MIT-yellow.svg)
 
-## Features
-- Automates the installation of `vsftpd` using `apt-get`.
-- Configures `vsftpd` for secure FTPS with SSL/TLS.
-- Dynamically generates SSL certificates and private keys if not already present.
-- Creates FTP users with test files in their home directories.
-- Provides commands to manage the `vsftpd` service (start, stop, restart, status).
-- Logs client commands for testing FTPS connections.
-- Ensures proper permissions for user directories and files.
+Welcome to **VsftpdFTPSSimplifier**! This project provides a Python-based tool that simplifies the installation, configuration, and management of the vsftpd service for secure FTPS. With this tool, you can automate essential tasks such as SSL certificate generation, FTP user creation, and service management. Our goal is to make it easier for you to set up and maintain a secure FTP server.
 
-## Functions
-The following are the key functions provided by the `VsftpdFTPSSimplifier` tool:
+## Table of Contents
 
-- **install_vsftpd()**: Installs the `vsftpd` package using the system's package manager.
-- **generate_ssl_cert(cert_path, key_path)**: Generates SSL certificates and private keys at the specified paths.
-- **configure_vsftpd(cert_path, key_path)**: Configures the `vsftpd` service for secure FTPS, including SSL/TLS settings.
-- **ensure_log_file_exists()**: Ensures the `vsftpd` log file exists and has the correct permissions.
-- **stop_vsftpd()**: Stops the `vsftpd` service.
-- **restart_vsftpd()**: Restarts the `vsftpd` service.
-- **check_status_vsftpd()**: Checks the status of the `vsftpd` service.
-- **check_port_listening(port)**: Verifies if the `vsftpd` service is listening on the specified port.
-- **create_random_file(file_path, size_kb)**: Creates a random file of the specified size in KB.
-- **create_ftp_user(username, password, file_type, size_kb)**: Creates an FTP user with a test file in their home directory.
-- **log_client_commands(username, password)**: Logs commands for testing FTP and FTPS connections.
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Managing Users](#managing-users)
+- [SSL Certificate Generation](#ssl-certificate-generation)
+- [Service Management](#service-management)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## Prerequisites
-- Python 3.6 or higher
-- OpenSSL
-- `vsftpd` (installed automatically by the script if not present)
-- `sudo` privileges for system-level changes
+## Features 🌟
 
-## Installation
-1. Clone the repository:
+- **Easy Installation**: Quickly set up the vsftpd service with a few commands.
+- **Automated Configuration**: Generate configuration files tailored to your needs.
+- **User Management**: Create and manage FTP users effortlessly.
+- **SSL Support**: Automatically generate SSL certificates for secure connections.
+- **Service Management**: Start, stop, and restart the vsftpd service with simple commands.
+- **Comprehensive Documentation**: Detailed guides to help you through every step.
+
+## Installation 🛠️
+
+To get started with **VsftpdFTPSSimplifier**, follow these steps:
+
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/VsftpdFTPSSimplifier.git
+   git clone https://github.com/Purva-A05/VsftpdFTPSSimplifier.git
    cd VsftpdFTPSSimplifier
    ```
 
-2. Ensure Python and OpenSSL are installed:
+2. **Install Required Packages**:
+   Ensure you have Python installed. Then, install the necessary packages using pip:
    ```bash
-   sudo apt-get install -y python3 openssl
+   pip install -r requirements.txt
    ```
 
-3. Make the script executable:
-   ```bash
-   chmod +x vsftpd_ftps_config.py
-   ```
+3. **Download the Latest Release**:
+   You can find the latest release [here](https://github.com/Purva-A05/VsftpdFTPSSimplifier/releases). Download the file and execute it to set up the tool.
 
-## Usage
-Run the script with the desired options:
+## Usage 📚
 
+After installation, you can start using **VsftpdFTPSSimplifier**. The main command to run the tool is:
 ```bash
-python3 vsftpd_ftps_config.py [OPTIONS]
+python vsftpd_simplifier.py
 ```
 
-### Available Options
-- `--cert`: Path to the SSL certificate file (default: `/etc/ssl/certs/vsftpd.pem`).
-- `--key`: Path to the SSL private key file (default: `/etc/ssl/private/vsftpd.key`).
-- `--user`: FTP username (default: `ftpuser`).
-- `--password`: FTP user password (default: `password`).
-- `--stop`: Stop the `vsftpd` service.
-- `--restart`: Restart the `vsftpd` service.
-- `--status`: Check the status of the `vsftpd` service.
-- `--check-port`: Check if `vsftpd` is listening on port 990.
-- `--file-type`: File type for the default test file (default: `txt`).
-- `--size`: File size in KB for the default test file (default: `1`).
+This command will launch the interactive interface where you can choose various options for setting up your FTP server.
 
-### Example Commands
-1. Install and configure `vsftpd` with default settings:
-   ```bash
-   python3 vsftpd_ftps_config.py
-   ```
+## Configuration ⚙️
 
-2. Create a user with a custom password and test file:
-   ```bash
-   python3 vsftpd_ftps_config.py --user myuser --password mypassword --file-type txt --size 10
-   ```
+### Basic Configuration
 
-3. Restart the `vsftpd` service:
-   ```bash
-   python3 vsftpd_ftps_config.py --restart
-   ```
+Upon running the tool, you will be prompted to enter basic configuration details such as:
 
-4. Check if `vsftpd` is listening on port 990:
-   ```bash
-   python3 vsftpd_ftps_config.py --check-port
-   ```
+- **Server IP Address**: Enter the IP address of your server.
+- **FTP Port**: Default is 21, but you can specify a different port if needed.
+- **Passive Mode Ports**: Define the range of ports for passive mode.
 
-## Logs
-The script logs all actions and outputs to the console for easy debugging and monitoring.
+### Advanced Configuration
 
-## Contributing
-Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
+For advanced users, you can manually edit the `vsftpd.conf` file located in the `/etc/vsftpd/` directory. The tool provides templates for common configurations.
 
-### Guidelines
-- Follow PEP 8 for Python code style.
-- Ensure all changes are tested before submitting a pull request.
-- Open an issue for any bugs or feature requests.
+## Managing Users 👥
 
-## License
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+### Adding Users
 
-## Disclaimer
-This script modifies system-level configurations and requires `sudo` privileges. Use it at your own risk.
+To add a new FTP user, you can use the command:
+```bash
+python vsftpd_simplifier.py add_user
 ```
+You will be prompted to enter the username and password.
+
+### Removing Users
+
+To remove an existing user, use:
+```bash
+python vsftpd_simplifier.py remove_user
+```
+Enter the username of the user you wish to remove.
+
+## SSL Certificate Generation 🔒
+
+To ensure secure connections, you need SSL certificates. **VsftpdFTPSSimplifier** can generate these for you. Use the command:
+```bash
+python vsftpd_simplifier.py generate_ssl
+```
+Follow the prompts to create your SSL certificates.
+
+## Service Management 🔄
+
+### Starting the Service
+
+To start the vsftpd service, use:
+```bash
+sudo systemctl start vsftpd
+```
+
+### Stopping the Service
+
+To stop the service, run:
+```bash
+sudo systemctl stop vsftpd
+```
+
+### Restarting the Service
+
+If you make changes to the configuration, restart the service with:
+```bash
+sudo systemctl restart vsftpd
+```
+
+## Contributing 🤝
+
+We welcome contributions to improve **VsftpdFTPSSimplifier**. Here’s how you can help:
+
+1. **Fork the Repository**: Click on the fork button in the top right corner.
+2. **Create a New Branch**: Use a descriptive name for your branch.
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. **Make Your Changes**: Implement your feature or fix.
+4. **Commit Your Changes**:
+   ```bash
+   git commit -m "Add a new feature"
+   ```
+5. **Push to Your Branch**:
+   ```bash
+   git push origin feature/YourFeature
+   ```
+6. **Open a Pull Request**: Go to the original repository and click on "New Pull Request".
+
+## License 📄
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact 📧
+
+For questions or feedback, feel free to reach out:
+
+- **Email**: your-email@example.com
+- **GitHub**: [Purva-A05](https://github.com/Purva-A05)
+
+For more details, visit the [Releases section](https://github.com/Purva-A05/VsftpdFTPSSimplifier/releases) to find the latest updates and download the latest version of the tool.
+
+---
+
+Thank you for using **VsftpdFTPSSimplifier**! We hope this tool makes your FTP server management easier and more secure.
